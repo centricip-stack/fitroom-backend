@@ -40,6 +40,7 @@ dependencies = [
     "fashn-human-parser>=0.1.1",
     "requests>=2.32.5",
     "bs4>=0.0.2",
+    "mediapipe>=0.10.32",
     "motor>=3.7.1",
 ]
 
