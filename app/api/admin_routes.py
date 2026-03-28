@@ -37,6 +37,8 @@ async def perform_sync_sapphire():
     except Exception as e:
         logger.error("Error during background Sapphire sync: %s", e)
 
+    
+# Front end calls this to display data of sapphire collection
 @router.post("/sync-sapphire")
 async def sync_sapphire(background_tasks: BackgroundTasks):
     """

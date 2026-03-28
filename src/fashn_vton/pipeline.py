@@ -268,7 +268,19 @@ class TryOnPipeline:
 
         # Get labels to segment based on category
         body_coverage = CATEGORY_TO_BODY_COVERAGE.get(category)
+        if body_coverage is None:
+            raise ValueError(
+                f"Invalid category '{category}'. Category not found in CATEGORY_TO_BODY_COVERAGE. "
+                f"Make sure the category is supported by the fashn_human_parser library."
+            )
+        
         labels_to_segment = BODY_COVERAGE_TO_FASHN_LABELS.get(body_coverage)
+        if labels_to_segment is None:
+            raise ValueError(
+                f"Invalid body_coverage '{body_coverage}' for category '{category}'. "
+                f"Body coverage not found in BODY_COVERAGE_TO_FASHN_LABELS."
+            )
+        
         labels_to_segment_indices = [FASHN_LABELS_TO_IDS[label] for label in labels_to_segment]
 
         # Create clothing-agnostic and garment images

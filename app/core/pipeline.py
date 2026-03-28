@@ -18,3 +18,22 @@
 #         output_path = os.path.join(save_dir, "output.png")
 #         result.images[0].save(output_path)
 #         return output_path
+
+# i have add this on 4/3/2026 5 lines
+from fashn_vton import TryOnPipeline
+from PIL import Image
+import os
+
+class FashnVTONService:
+    def __init__(self, weights_dir: str = "./weights", device: str = None):
+        # Use GPU if available, otherwise CPU. Pass explicit device for RunPod control
+        self.device = device
+        self.pipeline = TryOnPipeline(weights_dir=weights_dir, device=device)
+
+    def run(self, person_image: Image.Image, garment_image: Image.Image, category: str, save_dir="./outputs"):
+        os.makedirs(save_dir, exist_ok=True)
+        result = self.pipeline(person_image=person_image, garment_image=garment_image, category=category)
+        output_path = os.path.join(save_dir, "output.png")
+        result.images[0].save(output_path)
+        return output_path
+      
