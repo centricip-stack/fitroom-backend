@@ -6,7 +6,7 @@ from app.api.admin_routes import router as admin_router
 from app.api.routes import router as vton_router
 from fastapi.middleware.cors import CORSMiddleware
 
-
+from app.services.gpu_memory_manager import GPUMemoryManager
 
 
 
@@ -26,6 +26,15 @@ app = FastAPI(
 )
 
 
+@app.on_event("startup")
+async def startup_event():
+    # This prepares the RTX 4090 for high-performance inference
+    GPUMemoryManager.setup_memory_efficient_mode()
+    gpu_info = GPUMemoryManager.check_gpu_capability()
+    print(f"--- RUNPOD GPU INITIALIZED ---")
+    print(f"GPU Status: {gpu_info}")
+
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,3 +50,6 @@ app.add_middleware(
 app.include_router(vton_router)
 app.include_router(skin_router)
 app.include_router(admin_router)
+
+
+
