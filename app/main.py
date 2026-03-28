@@ -8,8 +8,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.services.gpu_memory_manager import GPUMemoryManager
 
-
-
+from fastapi.staticfiles import StaticFiles
+import os
 
 
 app = FastAPI(
@@ -43,6 +43,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+os.makedirs("outputs", exist_ok=True)
+app.mount("/outputs", StaticFiles(directory="outputs"), name="outputs")
 
 # [VTON - UNDER DEVELOPMENT] app.include_router(vton_router)
 
