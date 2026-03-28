@@ -49,13 +49,13 @@ dependencies = [
 ]
 
 [[tool.uv.index]]
-name = "pytorch-cu124"
-url = "https://download.pytorch.org/whl/cu124"
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu121" # Changed from cu124 to cu121
 explicit = true
 
 [tool.uv.sources]
-torch = { index = "pytorch-cu124" }
-torchvision = { index = "pytorch-cu124" }
+torch = { index = "pytorch" }
+torchvision = { index = "pytorch" }
 
 [project.optional-dependencies]
 dev = [
